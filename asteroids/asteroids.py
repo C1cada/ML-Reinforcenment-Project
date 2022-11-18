@@ -34,13 +34,17 @@ def merge_frames():
     pass
 
 def preprocess(I):
-    pass
+    I = I[35:195]
+    I = I[::2,::2,0]
+    I[I == 112] = 0
+    
 
 while True:
     action = 0
     observation, reward, done, info = env.step(action)
     observation2, reward2, done2, info2 = env.step(action)
-    observation = preprocess(observation + observation2)
+    # observation = preprocess(observation + observation2)
+    observation = observation + observation2
     reward = reward + reward2
 
     
@@ -48,11 +52,12 @@ while True:
     
     # print(observation.shape)
     # observation = observation[35:195]
-    # ob = ob[::2,::2, 0]
+    ob = observation[::2,::2, 0]
     # observation[observation == 144] = 0 #turn bacround colors to 0
-    # observation[observation == 109] = 0
+    # ob[ob == [214, 214, 214]] = 0
+    # ob[ob == [184, 50, 50]] = 0
     # observation[observation == ] = 0 #turn backround colors to 0
     # observation[observation != 0] = 1
-    # print(ob[ob != 0])
+    print(ob[ob != 0])
     # print(info)
     # print(len(ob[ob != 0]))
